@@ -126,8 +126,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v4.0.0
-          release_name: Release v4.0.0
+          tag_name: v5.0.0
+          release_name: Release v5.0.0
           body: |
             Description of the release
           draft: false
@@ -139,6 +139,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./
+          asset_path: ./web
           asset_name: web
           asset_content_type: application/octet-stream
