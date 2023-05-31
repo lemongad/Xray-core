@@ -117,30 +117,16 @@ jobs:
           mkdir -p build_assets
           go build -v -o build_assets/web -trimpath -ldflags "-s -w -buildid=" ./main
 
+      - name: Zip build_assets
+        run: zip -r xray.zip build_assets
 
-      - name: Create ZIP archive
-        shell: bash
-        run: |
-          pushd build_assets || exit 1
-          touch -mt $(date +%Y01010000) *
-          zip -9vr ../Xray-${{ env.ASSET_NAME }}.zip .
-          popd || exit 1
-          FILE=./Xray-${{ env.ASSET_NAME }}.zip
-          DGST=$FILE.dgst
-          for METHOD in {"md5","sha1","sha256","sha512"}
-          do
-            openssl dgst -$METHOD $FILE | sed 's/([^)]*)//g' >>$DGST
-          done
-
-      - name: Change the name
-        run: |
-          mv build_assets Xray-${{ env.ASSET_NAME }}
-
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
-        if: github.event_name == 'release'
+      - name: Upload to Release
+        uses: actions/upload-release-asset@v1
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./Xray-${{ env.ASSET_NAME }}.zip*
-          tag: ${{ github.ref }}
-          file_glob: true
+          name: xray.zip
+          path: ./xray.zip
+          mime-type: application/zip
+          token: ${{ secrets.GITHUB_TOKEN }}
+          url: ${{ env.RELEASE_UPLOAD_URL }} 
+
+      
