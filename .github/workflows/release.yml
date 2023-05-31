@@ -133,11 +133,13 @@ jobs:
           mv build_assets Xray-${{ env.ASSET_NAME }}
 
 
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
-        if: github.event_name == 'release'
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./Xray-${{ env.ASSET_NAME }}.zip
-          tag: ${{ github.ref }}
-          file_glob: false
+          # 创建一个 Release 并上传编译结果
+          TAG_NAME="v${{ github.run_number }}"
+          echo "Creating Release $TAG_NAME"
+          UPLOAD_URL=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -X POST "https://api.github.com/repos/${{ github.repository }}/releases" -d "{\"tag_name\":\"$TAG_NAME\",\"name\":\"$TAG_NAME\"}" | jq -r .upload_url | sed "s/{?name,label}//")
+
+          for entry in ./release/*
+          do
+            echo "Uploading: $entry"
+            curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/octet-stream" --data-binary @$entry "$UPLOAD_URL?name=$(basename $entry)"
+          done
