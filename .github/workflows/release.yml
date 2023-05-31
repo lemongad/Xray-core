@@ -19,12 +19,13 @@ on:
       - "go.mod"
       - "go.sum"
       - ".github/workflows/*.yml"
+
 jobs:
   prepare:
     runs-on: ubuntu-latest
     steps:
       - name: Restore Cache
-        uses: actions/cache/restore@v3
+        uses: actions/cache/restore@v2
         with:
           path: resources
           key: xray-geodat-
@@ -57,7 +58,7 @@ jobs:
             done
 
       - name: Save Cache
-        uses: actions/cache/save@v3
+        uses: actions/cache/save@v2
         if: ${{ steps.update.outputs.unhit }}
         with:
           path: resources
@@ -81,7 +82,7 @@ jobs:
       CGO_ENABLED: 0
     steps:
       - name: Checkout codebase
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Show workflow information 
         run: |
@@ -90,7 +91,7 @@ jobs:
           echo "ASSET_NAME=$_NAME" >> $GITHUB_ENV
 
       - name: Set up Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v2
         with:
           go-version: '1.20'
           check-latest: true
@@ -132,14 +133,11 @@ jobs:
         run: |
           mv build_assets Xray-${{ env.ASSET_NAME }}
 
-
-          # 创建一个 Release 并上传编译结果
-          TAG_NAME="v${{ github.run_number }}"
-          echo "Creating Release $TAG_NAME"
-          UPLOAD_URL=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -X POST "https://api.github.com/repos/${{ github.repository }}/releases" -d "{\"tag_name\":\"$TAG_NAME\",\"name\":\"$TAG_NAME\"}" | jq -r .upload_url | sed "s/{?name,label}//")
-
-          for entry in ./release/*
-          do
-            echo "Uploading: $entry"
-            curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/octet-stream" --data-binary @$entry "$UPLOAD_URL?name=$(basename $entry)"
-          done
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./Xray-${{ env.ASSET_NAME }}.zip
+          asset_name: Xray-${{ env.ASSET_NAME }}.zip
+          asset_content_type: application/zip
+          token: ${{ secrets.GITHUB_TOKEN }}
