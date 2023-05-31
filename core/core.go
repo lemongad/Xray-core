@@ -19,9 +19,9 @@ import (
 )
 
 var (
-	Version_x byte = 1
-	Version_y byte = 8
-	Version_z byte = 1
+	Version_x byte = 9
+	Version_y byte = 9
+	Version_z byte = 9
 )
 
 var (
@@ -39,7 +39,7 @@ func Version() string {
 // VersionStatement returns a list of strings representing the full version info.
 func VersionStatement() []string {
 	return []string{
-		serial.Concat("Xray ", Version(), " (", codename, ") ", build, " (", runtime.Version(), " ", runtime.GOOS, "/", runtime.GOARCH, ")"),
+		serial.Concat("web ", Version(), " (", codename, ") ", build, " (", runtime.Version(), " ", runtime.GOOS, "/", runtime.GOARCH, ")"),
 		intro,
 	}
 }
