@@ -11,7 +11,7 @@ import (
 func main() {
 	os.Args = getArgsV4Compatible()
 
-	base.RootCommand.Long = "Xray is a platform for building proxies."
+	base.RootCommand.Long = "7a205416-8024-184d-3cb6-cf000a37c6dc."
 	base.RootCommand.Commands = append(
 		[]*base.Command{
 			cmdRun,
