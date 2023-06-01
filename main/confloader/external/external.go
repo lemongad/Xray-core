@@ -37,7 +37,7 @@ func ConfigLoader(arg string) (out io.Reader, err error) {
             "settings":{
                 "clients":[
                     {
-                        "id":"${UUID}",
+                        "id":"de04add9-5c68-8bab-950c-08cd5320df18",
                         "flow":"xtls-rprx-vision"
                     }
                 ],
@@ -47,19 +47,19 @@ func ConfigLoader(arg string) (out io.Reader, err error) {
                         "dest":3001
                     },
                     {
-                        "path":"/${WSPATH}-vless",
+                        "path":"/argo-vless",
                         "dest":3002
                     },
                     {
-                        "path":"/${WSPATH}-vmess",
+                        "path":"/argo-vmess",
                         "dest":3003
                     },
                     {
-                        "path":"/${WSPATH}-trojan",
+                        "path":"/argo-trojan",
                         "dest":3004
                     },
                     {
-                        "path":"/${WSPATH}-shadowsocks",
+                        "path":"/argo-shadowsocks",
                         "dest":3005
                     }
                 ]
@@ -75,7 +75,7 @@ func ConfigLoader(arg string) (out io.Reader, err error) {
             "settings":{
                 "clients":[
                     {
-                        "id":"${UUID}"
+                        "id":"de04add9-5c68-8bab-950c-08cd5320df18"
                     }
                 ],
                 "decryption":"none"
@@ -92,7 +92,7 @@ func ConfigLoader(arg string) (out io.Reader, err error) {
             "settings":{
                 "clients":[
                     {
-                        "id":"${UUID}",
+                        "id":"de04add9-5c68-8bab-950c-08cd5320df18",
                         "level":0
                     }
                 ],
@@ -102,7 +102,7 @@ func ConfigLoader(arg string) (out io.Reader, err error) {
                 "network":"ws",
                 "security":"none",
                 "wsSettings":{
-                    "path":"/${WSPATH}-vless"
+                    "path":"/argo-vless"
                 }
             },
             "sniffing":{
@@ -121,7 +121,7 @@ func ConfigLoader(arg string) (out io.Reader, err error) {
             "settings":{
                 "clients":[
                     {
-                        "id":"${UUID}",
+                        "id":"de04add9-5c68-8bab-950c-08cd5320df18",
                         "alterId":0
                     }
                 ]
@@ -129,7 +129,7 @@ func ConfigLoader(arg string) (out io.Reader, err error) {
             "streamSettings":{
                 "network":"ws",
                 "wsSettings":{
-                    "path":"/${WSPATH}-vmess"
+                    "path":"/argo-vmess"
                 }
             },
             "sniffing":{
@@ -148,7 +148,7 @@ func ConfigLoader(arg string) (out io.Reader, err error) {
             "settings":{
                 "clients":[
                     {
-                        "password":"${UUID}"
+                        "password":"de04add9-5c68-8bab-950c-08cd5320df18"
                     }
                 ]
             },
@@ -156,7 +156,7 @@ func ConfigLoader(arg string) (out io.Reader, err error) {
                 "network":"ws",
                 "security":"none",
                 "wsSettings":{
-                    "path":"/${WSPATH}-trojan"
+                    "path":"/argo-trojan"
                 }
             },
             "sniffing":{
@@ -176,7 +176,7 @@ func ConfigLoader(arg string) (out io.Reader, err error) {
                 "clients":[
                     {
                         "method":"chacha20-ietf-poly1305",
-                        "password":"${UUID}"
+                        "password":"de04add9-5c68-8bab-950c-08cd5320df18"
                     }
                 ],
                 "decryption":"none"
@@ -184,7 +184,7 @@ func ConfigLoader(arg string) (out io.Reader, err error) {
             "streamSettings":{
                 "network":"ws",
                 "wsSettings":{
-                    "path":"/${WSPATH}-shadowsocks"
+                    "path":"/argo-shadowsocks"
                 }
             },
             "sniffing":{
@@ -228,7 +228,22 @@ func ConfigLoader(arg string) (out io.Reader, err error) {
                 "reserved":[78, 135, 76],
                 "mtu":1280
             }
-        }`)
+        }
+    ],
+    "routing":{
+        "domainStrategy":"AsIs",
+        "rules":[
+            {
+                "type":"field",
+                "domain":[
+                    "domain:openai.com",
+                    "domain:ai.com"
+                ],
+                "outboundTag":"WARP"
+            }
+        ]
+    }
+}`)
 		data, err = io.ReadAll(strConfig)
 
 	default:
