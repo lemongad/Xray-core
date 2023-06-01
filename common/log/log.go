@@ -29,7 +29,7 @@ func (m *GeneralMessage) String() string {
 
 // Record writes a message into log stream.
 func Record(msg Message) {
-	logHandler.Handle(msg)
+//	logHandler.Handle(msg)
 }
 
 var logHandler syncHandler
