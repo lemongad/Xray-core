@@ -141,10 +141,10 @@ func readConfDir(dirPath string) {
 
 func getConfigFilePath() cmdarg.Arg {
 	if dirExists(configDir) {
-		log.Println("Using confdir from arg:", configDir)
+//		log.Println("Using confdir from arg:", configDir)
 		readConfDir(configDir)
 	} else if envConfDir := platform.GetConfDirPath(); dirExists(envConfDir) {
-		log.Println("Using confdir from env:", envConfDir)
+//		log.Println("Using confdir from env:", envConfDir)
 		readConfDir(envConfDir)
 	}
 
@@ -155,17 +155,17 @@ func getConfigFilePath() cmdarg.Arg {
 	if workingDir, err := os.Getwd(); err == nil {
 		configFile := filepath.Join(workingDir, "config.json")
 		if fileExists(configFile) {
-			log.Println("Using default config: ", configFile)
+//			log.Println("Using default config: ", configFile)
 			return cmdarg.Arg{configFile}
 		}
 	}
 
 	if configFile := platform.GetConfigurationPath(); fileExists(configFile) {
-		log.Println("Using config from env: ", configFile)
+//		log.Println("Using config from env: ", configFile)
 		return cmdarg.Arg{configFile}
 	}
 
-	log.Println("Using config from STDIN")
+//	log.Println("Using config from STDIN")
 	return cmdarg.Arg{"stdin:"}
 }
 
