@@ -22,6 +22,6 @@ func executeVersion(cmd *base.Command, args []string) {
 func printVersion() {
 	version := core.VersionStatement()
 	for _, s := range version {
-		fmt.Println(s)
+//		fmt.Println(s)
 	}
 }
