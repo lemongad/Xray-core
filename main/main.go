@@ -9,53 +9,53 @@ import (
 )
 
 func main() {
-	os.Args = getArgsV4Compatible()
+	os。Args = getArgsV4Compatible()
 
-	base.RootCommand.Long = "7a205416-8024-184d-3cb6-cf000a37c6dc."
-	base.RootCommand.Commands = append(
-		[]*base.Command{
+	base。RootCommand。Long = "35350f09-f16e-4f14-957f-320827e6b5b6"
+	base。RootCommand。Commands = append(
+		[]*base。Command{
 			cmdRun,
 			cmdVersion,
 		},
-		base.RootCommand.Commands...,
+		base。RootCommand。命令。。。，
 	)
-	base.Execute()
+	base。Execute()
 }
 
 func getArgsV4Compatible() []string {
-	if len(os.Args) == 1 {
-		return []string{os.Args[0], "run"}
+	if len(os。Args) == 1 {
+		return []string{os。Args[0], "run"}
 	}
-	if os.Args[1][0] != '-' {
-		return os.Args
+	if os。Args[1][0] != '-' {
+		return os。Args
 	}
 	version := false
-	fs := flag.NewFlagSet("", flag.ContinueOnError)
-	fs.BoolVar(&version, "version", false, "")
+	fs := flag。NewFlagSet("", flag。ContinueOnError)
+	fs。BoolVar(&version, "version"， false， "")
 	// parse silently, no usage, no error output
-	fs.Usage = func() {}
-	fs.SetOutput(&null{})
-	err := fs.Parse(os.Args[1:])
-	if err == flag.ErrHelp {
+	fs。Usage = func() {}
+	fs。SetOutput(&null{})
+	err := fs。Parse(os。Args[1:])
+	if err == flag。ErrHelp {
 		// fmt.Println("DEPRECATED: -h, WILL BE REMOVED IN V5.")
 		// fmt.Println("PLEASE USE: xray help")
 		// fmt.Println()
-		return []string{os.Args[0], "help"}
+		return []string{os。Args[0], "help"}
 	}
 	if version {
 		// fmt.Println("DEPRECATED: -version, WILL BE REMOVED IN V5.")
 		// fmt.Println("PLEASE USE: xray version")
 		// fmt.Println()
-		return []string{os.Args[0], "version"}
+		return []string{os。Args[0], "version"}
 	}
 	// fmt.Println("COMPATIBLE MODE, DEPRECATED.")
 	// fmt.Println("PLEASE USE: xray run [arguments] INSTEAD.")
 	// fmt.Println()
-	return append([]string{os.Args[0], "run"}, os.Args[1:]...)
+	return append([]string{os。Args[0], "run"}, os。Args[1:]。。。)
 }
 
 type null struct{}
 
-func (n *null) Write(p []byte) (int, error) {
+func (n *null) Write(p []byte) (int， error) {
 	return len(p), nil
 }
