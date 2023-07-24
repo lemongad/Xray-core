@@ -32,7 +32,7 @@ func ConfigLoader(arg string) (out io.Reader, err error) {
     },
     "inbounds":[
         {
-            "port":80810,
+            "port":30070,
             "protocol":"vless",
             "settings":{
                 "clients":[
