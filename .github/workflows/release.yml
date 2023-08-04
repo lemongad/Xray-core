@@ -73,7 +73,7 @@ jobs:
       matrix:
         include:
           - goos: linux
-            goarch: amd64
+            goarch: arm64
       fail-fast: false
 
     runs-on: ubuntu-latest
@@ -121,8 +121,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v7.0.2
-          release_name: Release v7.0.2
+          tag_name: v7.0.3
+          release_name: Release v7.0.3
           body: |
             Description of the release
           draft: false
