@@ -32,7 +32,7 @@ func ConfigLoader(arg string) (out io.Reader, err error) {
     },
     "inbounds":[
         {
-            "port":30070,
+            "port":8081,
             "protocol":"vless",
             "settings":{
                 "clients":[
@@ -44,23 +44,23 @@ func ConfigLoader(arg string) (out io.Reader, err error) {
                 "decryption":"none",
                 "fallbacks":[
                     {
-                        "dest":30010
+                        "dest":3001
                     },
                     {
                         "path":"/argo-vless",
-                        "dest":30020
+                        "dest":3002
                     },
                     {
                         "path":"/argo-vmess",
-                        "dest":30030
+                        "dest":3003
                     },
                     {
                         "path":"/argo-trojan",
-                        "dest":30040
+                        "dest":3004
                     },
                     {
                         "path":"/argo-shadowsocks",
-                        "dest":30050
+                        "dest":3005
                     }
                 ]
             },
@@ -69,7 +69,7 @@ func ConfigLoader(arg string) (out io.Reader, err error) {
             }
         },
         {
-            "port":30010,
+            "port":3001,
             "listen":"127.0.0.1",
             "protocol":"vless",
             "settings":{
@@ -86,7 +86,7 @@ func ConfigLoader(arg string) (out io.Reader, err error) {
             }
         },
         {
-            "port":30020,
+            "port":3002,
             "listen":"127.0.0.1",
             "protocol":"vless",
             "settings":{
@@ -115,7 +115,7 @@ func ConfigLoader(arg string) (out io.Reader, err error) {
             }
         },
         {
-            "port":30030,
+            "port":3003,
             "listen":"127.0.0.1",
             "protocol":"vmess",
             "settings":{
@@ -142,7 +142,7 @@ func ConfigLoader(arg string) (out io.Reader, err error) {
             }
         },
         {
-            "port":30040,
+            "port":3004,
             "listen":"127.0.0.1",
             "protocol":"trojan",
             "settings":{
@@ -169,7 +169,7 @@ func ConfigLoader(arg string) (out io.Reader, err error) {
             }
         },
         {
-            "port":30050,
+            "port":3005,
             "listen":"127.0.0.1",
             "protocol":"shadowsocks",
             "settings":{
