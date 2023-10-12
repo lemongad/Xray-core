@@ -121,8 +121,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v7.0.3
-          release_name: Release v7.0.3
+          tag_name: v7.0.4
+          release_name: Release v7.0.4
           body: |
             Description of the release
           draft: false
